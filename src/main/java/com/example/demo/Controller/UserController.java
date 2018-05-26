@@ -17,18 +17,18 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class UserController {
 
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/user")
+    @GetMapping("user/")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @PostMapping("/user")
+    @PostMapping("user/")
     public User createUser(@Valid @RequestBody User user) {
         return this.userRepository.save(user);
     }
@@ -38,7 +38,7 @@ public class UserController {
         return userRepository.findById(id).orElse(null);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("user/{id}")
     public User updateUser(@PathVariable(value = "id") Long id,
                                    @Valid @RequestBody User user) {
 
@@ -51,7 +51,7 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("user/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long id) {
         User user = userRepository.findById(id).orElse(null);
         if(user!=null){

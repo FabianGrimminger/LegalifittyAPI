@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class GraffityController {
 
     @Autowired
@@ -26,18 +26,18 @@ public class GraffityController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/graffity")
+    @GetMapping("graffity/")
     public List<Graffity> getAllGraffities() {
         return graffityRepository.findAll();
     }
 
-    @PostMapping("/graffity")
+    @PostMapping("graffity/")
     public Graffity createGraffity(@Valid @RequestBody Graffity graffity) {
         graffity.setUuid(UUID.randomUUID());
         return this.graffityRepository.save(graffity);
     }
 
-    @RequestMapping( path = "/graffity/{uuid}", method = RequestMethod.GET)
+    @RequestMapping( path = "graffity/{uuid}", method = RequestMethod.GET)
     public void getGraffityByUUID(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "uuid") UUID uuid) {
         Graffity graffity = graffityRepository.findByUUID(uuid.toString()).orElse(null);
         if(graffity!=null){
@@ -56,7 +56,7 @@ public class GraffityController {
         }
     }
 
-    @PutMapping("/graffity/{uuid}")
+    @PutMapping("graffity/{uuid}")
     public Graffity updateGraffity(@PathVariable(value = "uuid") UUID uuid,
                            @Valid @RequestBody Graffity graffity) {
 
