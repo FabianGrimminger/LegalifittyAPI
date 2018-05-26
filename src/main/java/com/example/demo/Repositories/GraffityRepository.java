@@ -12,6 +12,6 @@ import java.util.UUID;
 public interface GraffityRepository extends JpaRepository<Graffity, Long> {
 
     @Query(value = "SELECT * FROM graffiy g WHERE g.uuid = ?1", nativeQuery = true)
-    Optional<Graffity> findByUUID(UUID uuid);
+    Optional<Graffity> findByUUID(String uuid);
 
 }

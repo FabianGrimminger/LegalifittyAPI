@@ -39,7 +39,7 @@ public class GraffityController {
 
     @RequestMapping( path = "/graffity/{uuid}", method = RequestMethod.GET)
     public void getGraffityByUUID(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "uuid") UUID uuid) {
-        Graffity graffity = graffityRepository.findByUUID(uuid).orElse(null);
+        Graffity graffity = graffityRepository.findByUUID(uuid.toString()).orElse(null);
         if(graffity!=null){
             File graffityFile = new File(graffity.buildDownloadPath());
 
@@ -60,7 +60,7 @@ public class GraffityController {
     public Graffity updateGraffity(@PathVariable(value = "uuid") UUID uuid,
                            @Valid @RequestBody Graffity graffity) {
 
-        Graffity graffity1 = graffityRepository.findByUUID(uuid).orElse(null);
+        Graffity graffity1 = graffityRepository.findByUUID(uuid.toString()).orElse(null);
         if(graffity1.getUuid().equals(graffity.getUuid())){
             graffity1 = graffity;
             graffityRepository.save(graffity1);
@@ -71,7 +71,7 @@ public class GraffityController {
 
     @DeleteMapping("/graffity/{uuid}")
     public ResponseEntity<?> deleteGraffity(@PathVariable(value = "uuid") UUID uuid) {
-        Graffity graffity = graffityRepository.findByUUID(uuid).orElse(null);
+        Graffity graffity = graffityRepository.findByUUID(uuid.toString()).orElse(null);
         if(graffity!=null){
             graffityRepository.delete(graffity);
         }
