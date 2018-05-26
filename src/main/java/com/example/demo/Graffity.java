@@ -15,7 +15,7 @@ public class Graffity {
 
     private UUID uuid;
 
-    @OneToMany
+    @OneToMany(mappedBy = "paintedGraffities")
     private User owner;
 
     public UUID getUuid() {

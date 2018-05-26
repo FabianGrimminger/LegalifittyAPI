@@ -3,6 +3,7 @@ package com.example.demo;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -13,6 +14,8 @@ public class User implements Serializable {
     private long id;
 
     private String name;
+
+    private List<Graffity> paintedGraffities;
 
     public long getId() {
         return id;
@@ -28,5 +31,13 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Graffity> getPaintedGraffities() {
+        return paintedGraffities;
+    }
+
+    public void setPaintedGraffities(List<Graffity> paintedGraffities) {
+        this.paintedGraffities = paintedGraffities;
     }
 }
