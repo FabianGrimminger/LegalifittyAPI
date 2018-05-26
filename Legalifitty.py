@@ -2,6 +2,15 @@ from flask import *
 import os
 app = Flask(__name__)
 
+import generate
+
+@app.route('/qrcode/<uuid>', methods = ['GET'])
+def download_qrcode(uuid):
+    logo = os.path.join(os.path.dirname(__file__), 'marker-borderless.svg')
+    png = generate.createQR(uuid, logo)
+
+    return Response(png, mimetype='image/png')
+
 @app.route('/graffiti', methods = ['POST'])
 def upload_file():
     if request.method == 'POST':
