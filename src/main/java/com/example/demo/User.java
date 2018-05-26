@@ -15,8 +15,7 @@ public class User implements Serializable {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,
-            targetEntity=User.class, mappedBy = "owner")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private List<Graffity> paintedGraffities;
 
     public long getId() {
