@@ -4,6 +4,8 @@ package com.example.demo;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 @Entity
@@ -14,7 +16,6 @@ public class Graffity {
     private Long id;
 
     private UUID uuid;
-
 
     private User owner;
 
@@ -40,5 +41,13 @@ public class Graffity {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public String buildDownloadPath(){
+        File uploadDirectory = new File("new folder");
+        if(!uploadDirectory.exists()){
+            uploadDirectory.mkdir();
+        }
+        return Paths.get(System.getProperty("user.home").toString(), this.getUuid().toString() + ".png").toString();
     }
 }
