@@ -15,6 +15,7 @@ public class User implements Serializable {
 
     private String name;
 
+    @OneToMany(mappedBy = "owner")
     private List<Graffity> paintedGraffities;
 
     public long getId() {
