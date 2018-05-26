@@ -19,7 +19,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api")
 public class UserController {
-/*
+
     @Autowired
     UserRepository userRepository;
 
@@ -58,5 +58,5 @@ public class UserController {
             userRepository.delete(user);
         }
         return ResponseEntity.ok().build();
-    }*/
+    }
 }
