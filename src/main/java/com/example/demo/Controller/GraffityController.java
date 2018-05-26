@@ -19,7 +19,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api")
 public class GraffityController {
-
+/*
     @Autowired
     GraffityRepository graffityRepository;
 
@@ -76,5 +76,5 @@ public class GraffityController {
             graffityRepository.delete(graffity);
         }
         return ResponseEntity.ok().build();
-    }
+    }*/
 }

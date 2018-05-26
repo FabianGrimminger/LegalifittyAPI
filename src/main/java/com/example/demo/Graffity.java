@@ -43,11 +43,11 @@ public class Graffity {
         this.owner = owner;
     }
 
-    public String buildDownloadPath(){
+    /*public String buildDownloadPath(){
         File uploadDirectory = new File("new folder");
         if(!uploadDirectory.exists()){
             uploadDirectory.mkdir();
         }
         return Paths.get(System.getProperty("user.home").toString(), this.getUuid().toString() + ".png").toString();
-    }
+    }*/
 }
