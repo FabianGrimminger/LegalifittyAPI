@@ -17,6 +17,7 @@ public class Graffity {
 
     private UUID uuid;
 
+    @ManyToOne(cascade=CascadeType.ALL)
     private User owner;
 
     public UUID getUuid() {
