@@ -1,38 +1,54 @@
 from flask import *
 import os
-app = Flask(__name__)
+import base64
 
 import generate
 
+app = Flask(__name__)
+app.secret_key = 'my unobvious secret key'
+app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'img')
 
-
-path = os.path.dirname(os.path.abspath(__file__))
 @app.route('/qrcode/<uuid>', methods = ['GET'])
 def download_qrcode(uuid):
-    logo = os.path.join(path, 'marker-borderless.svg')
+    logo = os.path.join(os.path.dirname(__file__), 'marker-borderless.svg')
     png = generate.createQR(uuid, logo)
 
     return Response(png, mimetype='image/png')
 
 @app.route('/graffiti', methods = ['POST'])
 def upload_file():
-    if request.method == 'POST':
-        f = request.files['file']
-        f.save(os.path.join(path, f.filename))
-        return 'SUCCESS'
+    # check if the post request has the file part
+    if 'file' not in request.form:
+        print 'No file part'
+        flash('No file part')
+        return redirect(request.url)
+    if 'name' not in request.form:
+        print 'No filename part'
+        flash('No filename part')
+        return redirect(request.url)
+    file_base64 = request.form['file']
+    filename = request.form['name']
+    file = base64.b64decode(file_base64)
+
+    target = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    f = open(target, 'w')
+    f.write(file)
+    f.close();
+
+    return 'SUCCESS'
+
 
 @app.route('/graffiti/<uuid>', methods = ['GET'])
 def download_graffity(uuid):
+    result = ""
     for file in os.listdir(os.path.dirname(__file__)):
-        splits = file.split('.')
-        if len(splits)==2:
-            filename = splits[0]
-            extension = splits[1]
-            if filename == uuid and extension == 'png':
-                response = send_from_directory(directory=path, filename=file)
-                return response
+        filename = file.split('.')[0]
+        if filename == uuid:
+            response = send_from_directory(directory=os.path.dirname(__file__), filename=file)
+            return response
 
-    return "ERROR"
+    return result
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7000, debug=True)
