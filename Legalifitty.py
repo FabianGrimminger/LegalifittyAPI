@@ -41,14 +41,9 @@ def upload_file():
 
 @app.route('/graffiti/<uuid>', methods = ['GET'])
 def download_graffity(uuid):
-    result = ""
-    for file in os.listdir(os.path.dirname(__file__)):
-        filename = file.split('.')[0]
-        if filename == uuid:
-            response = send_from_directory(directory=os.path.dirname(__file__), filename=file)
-            return response
-
-    return result
+    print "Download of UUID-Pic: " + uuid
+    response = send_from_directory(directory=app.config['UPLOAD_FOLDER'], filename=uuid + '.png')
+    return response
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7000, debug=True)
